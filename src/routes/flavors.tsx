@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { z } from "zod";
 import { useGSAP } from "@gsap/react";
-import { gsap, prefersReducedMotion } from "../lib/gsap";
+import { gsap, ScrollTrigger, prefersReducedMotion } from "../lib/gsap";
 import { CanModel } from "../components/CanModel";
 
 import canLemon from "../assets/canLemon.png.asset.json";
@@ -100,6 +100,19 @@ function FlavorsPage() {
           scrollTrigger: { trigger: el, start: "top 85%" },
         });
       });
+
+      // Swap the pinned can as each flavor panel crosses the viewport center
+      gsap.utils.toArray<HTMLElement>("[data-flavor-panel]").forEach((el) => {
+        const key = el.dataset.flavorPanel as FlavorKey;
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 55%",
+          end: "bottom 45%",
+          onToggle: (self) => {
+            if (self.isActive) setActive(key);
+          },
+        });
+      });
     },
     { scope: sectionsRef }
   );
@@ -134,34 +147,59 @@ function FlavorsPage() {
         </div>
       </section>
 
-      {/* FLAVOR SECTIONS */}
-      <div className="mx-auto max-w-7xl px-6 space-y-24 py-12">
-        {(Object.keys(flavors) as FlavorKey[]).map((k, i) => {
-          const f = flavors[k];
-          const reverse = i % 2 === 1;
-          return (
-            <section
-              id={`flavor-${k}`}
-              key={k}
-              className={`f-reveal grid lg:grid-cols-2 gap-10 items-center ${reverse ? "lg:[&>div:first-child]:order-2" : ""}`}
+      {/* FLAVOR SECTIONS — pinned can crossfades between flavors */}
+      <div className="mx-auto max-w-7xl px-6 py-12">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          {/* LEFT: sticky can stage */}
+          <div className="hidden lg:block lg:sticky lg:top-24 h-[80vh]">
+            <div
+              className="relative h-full w-full rounded-3xl overflow-hidden flex items-center justify-center transition-colors duration-700"
+              style={{ background: `color-mix(in oklab, ${flavors[active].hex} 18%, transparent)` }}
             >
-              <div className="relative h-[480px] rounded-3xl overflow-hidden flex items-center justify-center" style={{ background: `color-mix(in oklab, ${f.hex} 18%, transparent)` }}>
-                <img src={f.img} alt={`${f.name} blik`} className="h-[88%] w-auto object-contain drop-shadow-2xl" />
-              </div>
-              <div>
-                <p className="text-xs tracking-[0.25em] mb-2" style={{ color: f.hex }}>{f.tag.toUpperCase()}</p>
-                <h2 className="text-5xl">{f.name}</h2>
-                <p className="mt-4 text-muted-foreground max-w-lg">{f.info}</p>
+              {(Object.keys(flavors) as FlavorKey[]).map((k) => (
+                <img
+                  key={k}
+                  src={flavors[k].img}
+                  alt={`${flavors[k].name} blik`}
+                  className="absolute h-[82%] w-auto object-contain drop-shadow-2xl transition-opacity duration-700"
+                  style={{ opacity: active === k ? 1 : 0 }}
+                />
+              ))}
+            </div>
+          </div>
 
-                <div className="mt-8 space-y-4 max-w-md">
-                  <Bar label="Freshness" value={f.profile.freshness} color={f.hex} />
-                  <Bar label="Sweet"     value={f.profile.sweet}     color={f.hex} />
-                  <Bar label="Sour"      value={f.profile.sour}      color={f.hex} />
-                </div>
-              </div>
-            </section>
-          );
-        })}
+          {/* RIGHT: stacked text panels */}
+          <div className="space-y-[30vh]">
+            {(Object.keys(flavors) as FlavorKey[]).map((k) => {
+              const f = flavors[k];
+              return (
+                <section
+                  id={`flavor-${k}`}
+                  key={k}
+                  data-flavor-panel={k}
+                  className="f-reveal min-h-[60vh] flex flex-col justify-center"
+                >
+                  {/* mobile can */}
+                  <div
+                    className="lg:hidden mb-8 h-[360px] rounded-3xl overflow-hidden flex items-center justify-center"
+                    style={{ background: `color-mix(in oklab, ${f.hex} 18%, transparent)` }}
+                  >
+                    <img src={f.img} alt={`${f.name} blik`} className="h-[88%] w-auto object-contain drop-shadow-2xl" />
+                  </div>
+                  <p className="text-xs tracking-[0.25em] mb-2" style={{ color: f.hex }}>{f.tag.toUpperCase()}</p>
+                  <h2 className="text-5xl">{f.name}</h2>
+                  <p className="mt-4 text-muted-foreground max-w-lg">{f.info}</p>
+
+                  <div className="mt-8 space-y-4 max-w-md">
+                    <Bar label="Freshness" value={f.profile.freshness} color={f.hex} />
+                    <Bar label="Sweet"     value={f.profile.sweet}     color={f.hex} />
+                    <Bar label="Sour"      value={f.profile.sour}      color={f.hex} />
+                  </div>
+                </section>
+              );
+            })}
+          </div>
+        </div>
       </div>
 
       {/* COMPARE */}
