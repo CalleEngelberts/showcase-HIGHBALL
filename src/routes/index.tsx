@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "../lib/gsap";
+import { gsap, prefersReducedMotion } from "../lib/gsap";
 import { CanModel } from "../components/CanModel";
 
 import canLemon from "../assets/canLemon.png.asset.json";
