@@ -145,8 +145,8 @@ function FlavorsPage() {
               key={k}
               className={`f-reveal grid lg:grid-cols-2 gap-10 items-center ${reverse ? "lg:[&>div:first-child]:order-2" : ""}`}
             >
-              <div className="relative h-[480px] rounded-3xl overflow-hidden" style={{ background: `color-mix(in oklab, ${f.hex} 14%, transparent)` }}>
-                <CanModel tint={f.hex} interactive className="absolute inset-0" />
+              <div className="relative h-[480px] rounded-3xl overflow-hidden flex items-center justify-center" style={{ background: `color-mix(in oklab, ${f.hex} 18%, transparent)` }}>
+                <img src={f.img} alt={`${f.name} blik`} className="h-[88%] w-auto object-contain drop-shadow-2xl" />
               </div>
               <div>
                 <p className="text-xs tracking-[0.25em] mb-2" style={{ color: f.hex }}>{f.tag.toUpperCase()}</p>

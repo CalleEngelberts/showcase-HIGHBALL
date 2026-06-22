@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "../lib/gsap";
+import { gsap, prefersReducedMotion } from "../lib/gsap";
 import { CanModel } from "../components/CanModel";
 
 import canLemon from "../assets/canLemon.png.asset.json";
@@ -45,44 +45,18 @@ function HomePage() {
           scrollTrigger: { trigger: el, start: "top 85%" },
         });
       });
-
-      // Pinned scroll panel
-      const panel = scrollRef.current;
-      if (panel) {
-        const items = panel.querySelectorAll<HTMLElement>(".scroll-step");
-        items.forEach((item, i) => {
-          gsap.fromTo(
-            item,
-            { opacity: 0, y: 60 },
-            {
-              opacity: 1, y: 0, duration: 0.6, ease: "power2.out",
-              scrollTrigger: {
-                trigger: panel,
-                start: () => `top+=${i * 30}% top`,
-                end: () => `top+=${(i + 1) * 30}% top`,
-                scrub: true,
-              },
-            }
-          );
-        });
-        ScrollTrigger.create({
-          trigger: panel,
-          start: "top top",
-          end: "+=120%",
-          pin: ".pin-can",
-          pinSpacing: false,
-        });
-      }
     },
     { scope: scrollRef }
   );
 
   return (
-    <div>
+    <div ref={scrollRef}>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 pt-12 pb-20 grid lg:grid-cols-2 gap-10 items-center">
+        <div className="hero-bg" style={{ backgroundImage: `url(${rooftop.url})` }} />
+        <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-24 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
           <div className="space-y-6">
+            <p className="hero-fade text-xs tracking-[0.3em] text-foreground/60">SPARKLING COCKTAIL · 5% ABV</p>
             <h1 className="hero-fade text-5xl md:text-6xl lg:text-7xl leading-[1.05] text-foreground">
               Niet elke avond<br/>verdient om<br/>vergeten te worden.
             </h1>
@@ -91,49 +65,21 @@ function HomePage() {
               beter willen kiezen als ze drinken.
             </p>
             <div className="hero-fade flex flex-wrap gap-3">
-              <a href="#waitlist" className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground hover:opacity-90 transition">
+              <Link to="/wachtlijst" className="btn-premium rounded-full px-6 py-3 text-sm font-medium">
                 Proef als eerste
-              </a>
-              <Link to="/flavors" className="rounded-md border border-foreground/15 px-5 py-3 text-sm font-medium hover:bg-foreground/5 transition">
+              </Link>
+              <Link to="/flavors" className="rounded-full border border-foreground/20 px-6 py-3 text-sm font-medium hover:bg-foreground/5 transition">
                 Bekijk de smaken
               </Link>
             </div>
           </div>
-          <div className="hero-fade relative h-[440px] md:h-[520px]">
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-accent/15 via-transparent to-foreground/5" />
+          <div className="hero-fade relative h-[360px] md:h-[420px]">
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/60 to-white/10 backdrop-blur-sm border border-white/40 shadow-[var(--shadow-premium)]" />
             <CanModel tint="#7ac142" className="absolute inset-0" />
           </div>
         </div>
       </section>
 
-      {/* PINNED SCROLL */}
-      <section ref={scrollRef} className="relative bg-foreground/[0.03] border-y border-border/60">
-        <div className="mx-auto max-w-7xl px-6 py-24 grid lg:grid-cols-2 gap-12 items-start min-h-[100vh]">
-          <div className="pin-can h-[70vh]">
-            <CanModel tint="#c4d82e" className="h-full w-full" />
-          </div>
-          <div className="space-y-[40vh]">
-            <div className="scroll-step">
-              <h2 className="text-4xl md:text-5xl mb-4">Bewust gemaakt.</h2>
-              <p className="text-muted-foreground max-w-md">
-                Echte whiskey. Echte ingrediënten. Geen kunstmatige rommel.
-              </p>
-            </div>
-            <div className="scroll-step">
-              <h2 className="text-4xl md:text-5xl mb-4">Licht in balans.</h2>
-              <p className="text-muted-foreground max-w-md">
-                5% ABV, 109 kcal, slechts 2 gram suiker per blik.
-              </p>
-            </div>
-            <div className="scroll-step">
-              <h2 className="text-4xl md:text-5xl mb-4">Klaar wanneer jij dat bent.</h2>
-              <p className="text-muted-foreground max-w-md">
-                Open, schenk, geniet. Geen shaker, geen gedoe — wel de finish van een craft cocktail.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* INFO STRIP */}
       <section className="reveal mx-auto max-w-7xl px-6 py-16">
@@ -144,9 +90,9 @@ function HomePage() {
             { v: "2g suiker", l: "Minder, maar beter." },
             { v: "250 ml", l: "Perfect formaat." },
           ].map((s) => (
-            <div key={s.v} className="rounded-xl border border-border bg-card p-6">
-              <div className="font-display text-3xl text-foreground">{s.v}</div>
-              <div className="mt-1 text-sm text-muted-foreground">{s.l}</div>
+            <div key={s.v} className="rounded-2xl bg-card text-card-foreground p-6 shadow-[var(--shadow-soft)]">
+              <div className="font-display text-3xl">{s.v}</div>
+              <div className="mt-1 text-sm text-card-foreground/65">{s.l}</div>
             </div>
           ))}
         </div>
@@ -161,7 +107,7 @@ function HomePage() {
               Drie verfrissende smaken. Duurzaam gemaakt, heerlijk in balans.
             </p>
           </div>
-          <Link to="/flavors" className="rounded-md border border-foreground/15 px-4 py-2 text-sm hover:bg-foreground/5 transition">
+          <Link to="/flavors" className="rounded-full border border-foreground/20 px-4 py-2 text-sm hover:bg-foreground/5 transition">
             Ontdek alle smaken
           </Link>
         </div>
@@ -171,22 +117,22 @@ function HomePage() {
               key={f.key}
               to="/flavors"
               search={{ flavor: f.key }}
-              className="reveal group rounded-2xl bg-card border border-border p-6 flex flex-col items-center text-center transition hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+              className="reveal group rounded-3xl bg-card text-card-foreground p-6 flex flex-col items-center text-center transition hover:-translate-y-1 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-premium)]"
             >
               <div className="h-72 flex items-center justify-center">
-                <img src={f.img} alt={`${f.name} can`} className="h-full w-auto object-contain group-hover:scale-105 transition" />
+                <img src={f.img} alt={`${f.name} can`} className="h-full w-auto object-contain drop-shadow-2xl group-hover:scale-105 transition" />
               </div>
               <h3 className="mt-4 text-2xl">{f.name}</h3>
               <p className="text-sm font-medium" style={{ color: f.tint }}>{f.tag}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{f.blurb}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm underline underline-offset-4">Meer info →</span>
+              <p className="mt-2 text-sm text-card-foreground/65">{f.blurb}</p>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm text-card-foreground/80 underline underline-offset-4">Meer info →</span>
             </Link>
           ))}
         </div>
       </section>
 
       {/* MOMENTEN */}
-      <section id="momenten" className="mx-auto max-w-7xl px-6 py-20">
+      <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-10 items-start">
           <div className="reveal">
             <h2 className="text-4xl md:text-5xl">Voor het uur waarop<br/>het licht goud wordt.</h2>
@@ -201,24 +147,14 @@ function HomePage() {
         </div>
       </section>
 
-      {/* WAITLIST */}
-      <section id="waitlist" className="bg-foreground/[0.04] border-y border-border/60">
-        <div className="reveal mx-auto max-w-5xl px-6 py-16 grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-4xl">De eerste batch komt eraan.</h2>
-            <p className="mt-2 text-muted-foreground">Schrijf je in voor de wachtlijst en proef als eerste.</p>
-          </div>
-          <form
-            onSubmit={(e) => { e.preventDefault(); alert("Bedankt! We houden je op de hoogte."); }}
-            className="flex gap-2"
-          >
-            <input
-              type="email" required placeholder="Jouw e-mailadres"
-              className="flex-1 rounded-md border border-input bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-            <button className="rounded-md bg-accent px-5 py-3 text-sm font-medium text-accent-foreground">Meld me aan</button>
-          </form>
-          <p className="md:col-span-2 text-xs text-muted-foreground">18+ · Drink bewust</p>
+      {/* CTA */}
+      <section className="mx-auto max-w-7xl px-6 pb-24">
+        <div className="reveal rounded-3xl surface-dark p-12 md:p-16 text-center shadow-[var(--shadow-premium)]">
+          <h2 className="text-4xl md:text-5xl text-white">De eerste batch komt eraan.</h2>
+          <p className="mt-3 text-white/70 max-w-md mx-auto">Schrijf je in voor de wachtlijst en proef als eerste.</p>
+          <Link to="/wachtlijst" className="btn-premium mt-8 inline-flex rounded-full px-7 py-3 text-sm font-medium">
+            Meld me aan
+          </Link>
         </div>
       </section>
     </div>

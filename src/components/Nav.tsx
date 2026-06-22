@@ -1,24 +1,27 @@
 import { Link } from "@tanstack/react-router";
 
 export function Nav() {
+  const linkCls = "text-sm tracking-wide text-white/75 hover:text-white transition";
+  const activeProps = { className: "text-white font-medium" };
+
   return (
-    <header className="sticky top-0 z-50 bg-background/85 backdrop-blur border-b border-border/60">
+    <header className="sticky top-0 z-50 surface-dark border-b border-white/10 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.3)]">
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
-        <Link to="/" className="font-display text-xl tracking-[0.2em] text-foreground">
+        <Link to="/" className="font-display text-xl tracking-[0.25em] text-white">
           HIGHBALL CLUB
         </Link>
-        <nav className="hidden md:flex items-center gap-10 text-sm">
-          <Link to="/flavors" className="hover:text-accent-foreground/70 transition" activeProps={{ className: "text-foreground font-medium" }}>Smaken</Link>
-          <Link to="/story" className="hover:text-accent-foreground/70 transition" activeProps={{ className: "text-foreground font-medium" }}>Verhaal</Link>
-          <a href="#momenten" className="hover:text-accent-foreground/70 transition">Momenten</a>
-          <a href="#waitlist" className="hover:text-accent-foreground/70 transition">Wachtlijst</a>
+        <nav className="hidden md:flex items-center gap-10">
+          <Link to="/" className={linkCls} activeOptions={{ exact: true }} activeProps={activeProps}>Home</Link>
+          <Link to="/flavors" className={linkCls} activeProps={activeProps}>Smaken</Link>
+          <Link to="/story" className={linkCls} activeProps={activeProps}>Verhaal</Link>
+          <Link to="/wachtlijst" className={linkCls} activeProps={activeProps}>Wachtlijst</Link>
         </nav>
-        <a
-          href="#waitlist"
-          className="inline-flex items-center rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-foreground hover:opacity-90 transition"
+        <Link
+          to="/wachtlijst"
+          className="btn-premium inline-flex items-center rounded-full px-5 py-2 text-sm font-medium"
         >
           Proef als eerste
-        </a>
+        </Link>
       </div>
     </header>
   );
