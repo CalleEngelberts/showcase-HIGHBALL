@@ -1,55 +1,27 @@
 import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, ContactShadows, OrbitControls } from "@react-three/drei";
+import { Environment, ContactShadows, OrbitControls, useGLTF, Center } from "@react-three/drei";
 import * as THREE from "three";
+import canAsset from "../assets/FinalCan2.glb.asset.json";
 
-/**
- * Interactive 3D can.
- *
- * TODO (when you have the GLB):
- *   1. Drop your model at: public/models/can.glb
- *   2. Replace <PlaceholderCan /> with <GlbCan />
- *   3. Uncomment the useGLTF lines below.
- *
- * import { useGLTF } from "@react-three/drei";
- * function GlbCan(props: JSX.IntrinsicElements["group"]) {
- *   const { scene } = useGLTF("/models/can.glb");
- *   return <primitive object={scene} {...props} />;
- * }
- * useGLTF.preload("/models/can.glb");
- */
+const CAN_URL = canAsset.url;
 
-function PlaceholderCan({ tint = "#7ac142" }: { tint?: string }) {
+function GlbCan({ autoRotate = true }: { autoRotate?: boolean }) {
   const group = useRef<THREE.Group>(null);
+  const { scene } = useGLTF(CAN_URL);
   useFrame((_, dt) => {
-    if (group.current) group.current.rotation.y += dt * 0.4;
+    if (autoRotate && group.current) group.current.rotation.y += dt * 0.35;
   });
   return (
-    <group ref={group}>
-      {/* body */}
-      <mesh castShadow position={[0, 0, 0]}>
-        <cylinderGeometry args={[0.55, 0.55, 2.2, 64, 1, false]} />
-        <meshPhysicalMaterial
-          color="#fafafa"
-          roughness={0.35}
-          metalness={0.15}
-          clearcoat={0.6}
-          clearcoatRoughness={0.2}
-        />
-      </mesh>
-      {/* top rim */}
-      <mesh position={[0, 1.12, 0]}>
-        <cylinderGeometry args={[0.5, 0.55, 0.08, 64]} />
-        <meshStandardMaterial color="#c9c9c9" metalness={0.9} roughness={0.25} />
-      </mesh>
-      {/* bottom flavor band */}
-      <mesh position={[0, -1.08, 0]}>
-        <cylinderGeometry args={[0.555, 0.555, 0.12, 64]} />
-        <meshStandardMaterial color={tint} roughness={0.45} />
-      </mesh>
-    </group>
+    <Center>
+      <group ref={group}>
+        <primitive object={scene} />
+      </group>
+    </Center>
   );
 }
+
+useGLTF.preload(CAN_URL);
 
 type Props = {
   tint?: string;
@@ -57,7 +29,7 @@ type Props = {
   className?: string;
 };
 
-export function CanModel({ tint, interactive = false, className }: Props) {
+export function CanModel({ interactive = false, className }: Props) {
   return (
     <div className={className}>
       <Canvas
@@ -68,12 +40,20 @@ export function CanModel({ tint, interactive = false, className }: Props) {
       >
         <ambientLight intensity={0.6} />
         <directionalLight position={[3, 5, 4]} intensity={1.2} castShadow />
+        <directionalLight position={[-4, 2, -2]} intensity={0.4} />
         <Suspense fallback={null}>
-          <PlaceholderCan tint={tint} />
+          <GlbCan autoRotate={!interactive} />
           <ContactShadows position={[0, -1.25, 0]} opacity={0.35} scale={5} blur={2.4} far={3} />
           <Environment preset="studio" />
         </Suspense>
-        {interactive && <OrbitControls enablePan={false} enableZoom={false} />}
+        {interactive && (
+          <OrbitControls
+            enablePan={false}
+            enableZoom={false}
+            minPolarAngle={Math.PI / 3}
+            maxPolarAngle={Math.PI / 1.8}
+          />
+        )}
       </Canvas>
     </div>
   );
