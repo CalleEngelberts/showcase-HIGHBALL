@@ -100,6 +100,19 @@ function FlavorsPage() {
           scrollTrigger: { trigger: el, start: "top 85%" },
         });
       });
+
+      // Swap the pinned can as each flavor panel crosses the viewport center
+      gsap.utils.toArray<HTMLElement>("[data-flavor-panel]").forEach((el) => {
+        const key = el.dataset.flavorPanel as FlavorKey;
+        ScrollTrigger.create({
+          trigger: el,
+          start: "top 55%",
+          end: "bottom 45%",
+          onToggle: (self) => {
+            if (self.isActive) setActive(key);
+          },
+        });
+      });
     },
     { scope: sectionsRef }
   );
