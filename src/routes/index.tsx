@@ -75,7 +75,7 @@ function HomePage() {
           </div>
           <div className="hero-fade relative h-[360px] md:h-[420px]">
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/60 to-white/10 backdrop-blur-sm border border-white/40 shadow-[var(--shadow-premium)]" />
-            <CanModel tint="#7ac142" className="absolute inset-0" />
+            <CanModel interactive className="absolute inset-0 cursor-grab active:cursor-grabbing" />
           </div>
         </div>
       </section>
