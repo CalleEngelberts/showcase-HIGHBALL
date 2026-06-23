@@ -5,9 +5,9 @@ import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger, prefersReducedMotion } from "../lib/gsap";
 import { CanModel } from "../components/CanModel";
 
-import canLemon from "../assets/canLemon.png.asset.json";
-import canYuzu from "../assets/canYuzu.png.asset.json";
-import canGinger from "../assets/canGinger.png.asset.json";
+import canLemon from "../assets/canLemon.png?url";
+import canYuzu from "../assets/canYuzu.png?url";
+import canGinger from "../assets/canGinger.png?url";
 
 const searchSchema = z.object({
   flavor: z.enum(["lemon", "yuzu", "ginger"]).optional(),
@@ -33,19 +33,19 @@ const flavors: Record<FlavorKey, {
   stats: { calories: number; sugar: string; sweetness: number; sour: number; bitterness: number; refreshing: number };
 }> = {
   lemon: {
-    name: "Lemon", tag: "Fris & licht", tint: "var(--lemon)", hex: "#f4c430", img: canLemon.url,
+    name: "Lemon", tag: "Fris & licht", tint: "var(--lemon)", hex: "#f4c430", img: canLemon,
     info: "Een heldere citroen-highball met zachte whiskey-tonen. Knapperig, droog, en eindeloos verfrissend — bedoeld voor late middagen die overgaan in lange avonden.",
     profile: { freshness: 90, sweet: 35, sour: 70 },
     stats: { calories: 109, sugar: "2g", sweetness: 2, sour: 4, bitterness: 2, refreshing: 5 },
   },
   yuzu: {
-    name: "Yuzu", tag: "Citrus & verfijnd", tint: "var(--yuzu)", hex: "#7ac142", img: canYuzu.url,
+    name: "Yuzu", tag: "Citrus & verfijnd", tint: "var(--yuzu)", hex: "#7ac142", img: canYuzu,
     info: "Japanse yuzu ontmoet een elegante, droge afdronk. Floraal, complex, en toch licht — onze meest gevraagde smaak voor diners die net iets later worden.",
     profile: { freshness: 85, sweet: 45, sour: 60 },
     stats: { calories: 105, sugar: "2g", sweetness: 3, sour: 3, bitterness: 3, refreshing: 5 },
   },
   ginger: {
-    name: "Ginger", tag: "Kruidig & warm", tint: "var(--ginger)", hex: "#d4a574", img: canGinger.url,
+    name: "Ginger", tag: "Kruidig & warm", tint: "var(--ginger)", hex: "#d4a574", img: canGinger,
     info: "Verse gember met een subtiele kick en een warme, kruidige finish. De keuze voor wie houdt van een Moscow Mule met meer karakter.",
     profile: { freshness: 70, sweet: 50, sour: 40 },
     stats: { calories: 90, sugar: "2g", sweetness: 3, sour: 2, bitterness: 4, refreshing: 4 },
@@ -101,7 +101,6 @@ function FlavorsPage() {
         });
       });
 
-      // Swap the pinned can as each flavor panel crosses the viewport center
       gsap.utils.toArray<HTMLElement>("[data-flavor-panel]").forEach((el) => {
         const key = el.dataset.flavorPanel as FlavorKey;
         ScrollTrigger.create({
@@ -147,7 +146,7 @@ function FlavorsPage() {
         </div>
       </section>
 
-      {/* FLAVOR SECTIONS — pinned can crossfades between flavors */}
+      {/* FLAVOR SECTIONS */}
       <div className="mx-auto max-w-7xl px-6 py-12">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           {/* LEFT: sticky can stage */}
@@ -179,7 +178,6 @@ function FlavorsPage() {
                   data-flavor-panel={k}
                   className="f-reveal min-h-[60vh] flex flex-col justify-center"
                 >
-                  {/* mobile can */}
                   <div
                     className="lg:hidden mb-8 h-[360px] rounded-3xl overflow-hidden flex items-center justify-center"
                     style={{ background: `color-mix(in oklab, ${f.hex} 18%, transparent)` }}
@@ -209,7 +207,7 @@ function FlavorsPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-foreground/[0.04] text-left">
-                <th className="p-4 font-medium text-muted-foreground">Compare flavors</th>
+                <th className="p-4 font-medium text-white">Compare flavors</th>
                 {(Object.keys(flavors) as FlavorKey[]).map((k) => (
                   <th key={k} className="p-4 font-display text-lg" style={{ color: flavors[k].hex }}>{flavors[k].name}</th>
                 ))}
@@ -217,18 +215,18 @@ function FlavorsPage() {
             </thead>
             <tbody>
               {[
-                { label: "Calories",  get: (f: typeof flavors.lemon) => `${f.stats.calories}` },
-                { label: "Sugar",     get: (f: typeof flavors.lemon) => f.stats.sugar },
-                { label: "Sweetness", dots: (f: typeof flavors.lemon) => f.stats.sweetness },
-                { label: "Sour",      dots: (f: typeof flavors.lemon) => f.stats.sour },
-                { label: "Bitterness",dots: (f: typeof flavors.lemon) => f.stats.bitterness },
-                { label: "Refreshing",dots: (f: typeof flavors.lemon) => f.stats.refreshing },
+                { label: "Calories",   get: (f: typeof flavors.lemon) => `${f.stats.calories}` },
+                { label: "Sugar",      get: (f: typeof flavors.lemon) => f.stats.sugar },
+                { label: "Sweetness",  dots: (f: typeof flavors.lemon) => f.stats.sweetness },
+                { label: "Sour",       dots: (f: typeof flavors.lemon) => f.stats.sour },
+                { label: "Bitterness", dots: (f: typeof flavors.lemon) => f.stats.bitterness },
+                { label: "Refreshing", dots: (f: typeof flavors.lemon) => f.stats.refreshing },
               ].map((row) => (
                 <tr key={row.label} className="border-t border-border">
-                  <td className="p-4 text-muted-foreground">{row.label}</td>
+                  <td className="p-4 text-white">{row.label}</td>
                   {(Object.keys(flavors) as FlavorKey[]).map((k) => (
                     <td key={k} className="p-4">
-                      {row.dots ? <Dots n={row.dots(flavors[k])} color={flavors[k].hex} /> : row.get!(flavors[k])}
+                      {row.dots ? <Dots n={row.dots(flavors[k])} color={flavors[k].hex} /> : <span className="text-white">{row.get!(flavors[k])}</span>}
                     </td>
                   ))}
                 </tr>

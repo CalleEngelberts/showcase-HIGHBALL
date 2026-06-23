@@ -4,13 +4,12 @@ import { useGSAP } from "@gsap/react";
 import { gsap, prefersReducedMotion } from "../lib/gsap";
 import { CanModel } from "../components/CanModel";
 
-import canLemon from "../assets/canLemon.png.asset.json";
-import canYuzu from "../assets/canYuzu.png.asset.json";
-import canGinger from "../assets/canGinger.png.asset.json";
-import rooftop from "../assets/rooftop.jpg.asset.json";
-import story1 from "../assets/story1.jpg.asset.json";
-import story2 from "../assets/story2.jpg.asset.json";
-import story3 from "../assets/story3.jpg.asset.json";
+import canLemon from "../assets/canLemon.png";
+import canYuzu from "../assets/canYuzu.png";
+import canGinger from "../assets/canGinger.png";
+import story1 from "../assets/story1.png";
+import story2 from "../assets/story2.png";
+import story3 from "../assets/story3.jpeg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,9 +22,9 @@ export const Route = createFileRoute("/")({
 });
 
 const flavors = [
-  { key: "lemon",  name: "Lemon",  tag: "Fris & licht",      blurb: "Zonnige citroen met een zachte whiskey-finish.",  img: canLemon.url,  tint: "var(--lemon)" },
-  { key: "yuzu",   name: "Yuzu",   tag: "Citrus & verfijnd", blurb: "Japanse yuzu met een elegante, droge afdronk.",   img: canYuzu.url,   tint: "var(--yuzu)" },
-  { key: "ginger", name: "Ginger", tag: "Kruidig & warm",    blurb: "Gember met een subtiele kick en warme finish.",   img: canGinger.url, tint: "var(--ginger)" },
+  { key: "lemon",  name: "Lemon",  tag: "Fris & licht",      blurb: "Zonnige citroen met een zachte whiskey-finish.",  img: canLemon,  tint: "var(--lemon)" },
+  { key: "yuzu",   name: "Yuzu",   tag: "Citrus & verfijnd", blurb: "Japanse yuzu met een elegante, droge afdronk.",   img: canYuzu,   tint: "var(--yuzu)" },
+  { key: "ginger", name: "Ginger", tag: "Kruidig & warm",    blurb: "Gember met een subtiele kick en warme finish.",   img: canGinger, tint: "var(--ginger)" },
 ];
 
 function HomePage() {
@@ -53,7 +52,7 @@ function HomePage() {
     <div ref={scrollRef}>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="hero-bg" style={{ backgroundImage: `url(${rooftop.url})` }} />
+        <div className="hero-bg" style={{ backgroundImage: `url(${story1})` }} />
         <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-24 grid lg:grid-cols-[1.2fr_0.8fr] gap-10 items-center">
           <div className="space-y-6">
             <p className="hero-fade text-xs tracking-[0.3em] text-foreground/60">SPARKLING COCKTAIL · 5% ABV</p>
@@ -79,7 +78,6 @@ function HomePage() {
           </div>
         </div>
       </section>
-
 
       {/* INFO STRIP */}
       <section className="reveal mx-auto max-w-7xl px-6 py-16">
@@ -139,10 +137,10 @@ function HomePage() {
             <p className="mt-3 text-muted-foreground">De kleine momenten die groot voelen. Daar proosten we op.</p>
           </div>
           <div className="reveal grid grid-cols-3 grid-rows-2 gap-3 h-[460px]">
-            <img src={rooftop.url} className="col-span-2 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
-            <img src={story1.url} className="col-span-1 row-span-2 h-full w-full object-cover rounded-xl" alt="" />
-            <img src={story2.url} className="col-span-1 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
-            <img src={story3.url} className="col-span-1 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
+            <img src={story1} className="col-span-2 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
+            <img src={story1} className="col-span-1 row-span-2 h-full w-full object-cover rounded-xl" alt="" />
+            <img src={story2} className="col-span-1 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
+            <img src={story3} className="col-span-1 row-span-1 h-full w-full object-cover rounded-xl" alt="" />
           </div>
         </div>
       </section>

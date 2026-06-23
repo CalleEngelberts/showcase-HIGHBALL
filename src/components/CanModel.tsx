@@ -2,9 +2,9 @@ import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Environment, ContactShadows, OrbitControls, useGLTF, Center } from "@react-three/drei";
 import * as THREE from "three";
-import canAsset from "../assets/FinalCan2.glb.asset.json";
+import CAN_URL from "../assets/FinalCan3.glb?url";
 
-const CAN_URL = canAsset.url;
+
 
 function GlbCan({ autoRotate = true }: { autoRotate?: boolean }) {
   const group = useRef<THREE.Group>(null);
