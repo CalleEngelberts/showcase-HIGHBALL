@@ -2,14 +2,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 export default defineConfig({
   vite: {
-    base: "/showcase-HighBall/",
+    base: "/",
   },
   tanstackStart: {
     server: { entry: "server" },
     prerender: {
-  enabled: true,
-  crawlLinks: true,
-  filter: ({ path }) => !path.includes("?") && !path.includes("wachtlijst"),
-},
+      enabled: true,
+      crawlLinks: true,
+      filter: ({ path }) => !path.includes("?") && !path.includes("wachtlijst"),
+    },
   },
 });
