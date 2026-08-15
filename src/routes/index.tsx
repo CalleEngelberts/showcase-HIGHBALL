@@ -27,26 +27,63 @@ const flavors = [
   { key: "ginger", name: "Ginger", tag: "Kruidig & warm",    blurb: "Gember met een subtiele kick en warme finish.",   img: canGinger, tint: "var(--ginger)" },
 ];
 
+const infoItems = [
+  { v: "5% alc", l: "Licht en in balans." },
+  { v: "150 kcal", l: "Bewust genieten." },
+  { v: "2g suiker", l: "Minder, maar beter." },
+  { v: "300 ml", l: "Perfect formaat." },
+
+  // Add more later:
+  { v: "Premium", l: "Crafted with care." },
+  { v: "Whiskey", l: "Met echte Japanse whiskey." },
+  { v: "Serve Cold", l: "Het lekkerst ijskoud." },
+  { v: "3 Smaken", l: "Lemon · Yuzu · Ginger." },
+];
+
 function HomePage() {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
-    () => {
-      if (prefersReducedMotion()) return;
+  () => {
+    if (prefersReducedMotion()) return;
 
-      gsap.from(".hero-fade", {
-        y: 24, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.08,
-      });
+    gsap.from(".hero-fade", {
+      y: 24,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      stagger: 0.08,
+    });
 
-      gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
-        gsap.from(el, {
-          y: 40, opacity: 0, duration: 0.9, ease: "power3.out",
-          scrollTrigger: { trigger: el, start: "top 85%" },
-        });
+    gsap.utils.toArray<HTMLElement>(".reveal").forEach((el) => {
+      gsap.from(el, {
+        y: 40,
+        opacity: 0,
+        duration: 0.9,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: el,
+          start: "top 85%",
+        },
       });
-    },
-    { scope: scrollRef }
-  );
+    });
+
+    // INFO CAROUSEL
+    gsap.fromTo(
+      ".info-carousel-track",
+      {
+        xPercent: -50,
+      },
+      {
+        xPercent: 0,
+        duration: 20,
+        ease: "none",
+        repeat: -1,
+      }
+    );
+  },
+  { scope: scrollRef }
+);
 
   return (
     <div ref={scrollRef}>
@@ -74,12 +111,15 @@ function HomePage() {
           </div>
           <div className="hero-fade relative h-[360px] md:h-[420px]">
             <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-white/60 to-white/10 backdrop-blur-sm border border-white/40 shadow-[var(--shadow-premium)]" />
-            <CanModel interactive className="absolute inset-0 cursor-grab active:cursor-grabbing" />
+            <CanModel
+             flavor="yuzu"
+             className="absolute inset-0 cursor-grab active:cursor-grabbing"
+              />
           </div>
         </div>
       </section>
 
-      {/* INFO STRIP */}
+      {/* INFO STRIP
       <section className="reveal mx-auto max-w-7xl px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
@@ -94,7 +134,52 @@ function HomePage() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
+  
+{/* INFO STRIP */}
+<section className="reveal py-16 overflow-hidden">
+  <div className="w-full overflow-hidden">
+    <div className="info-carousel-track flex w-max">
+      
+      {/* FIRST COPY */}
+      <div className="flex shrink-0 gap-6 pr-6">
+        {infoItems.map((s) => (
+          <div
+            key={`first-${s.v}`}
+            className="w-[260px] shrink-0 rounded-2xl bg-card text-card-foreground p-6 shadow-[var(--shadow-soft)]"
+          >
+            <div className="font-display text-3xl whitespace-nowrap">
+              {s.v}
+            </div>
+
+            <div className="mt-1 text-sm text-card-foreground/65 whitespace-nowrap">
+              {s.l}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* SECOND COPY */}
+      <div className="flex shrink-0 gap-6 pr-6">
+        {infoItems.map((s) => (
+          <div
+            key={`second-${s.v}`}
+            className="w-[260px] shrink-0 rounded-2xl bg-card text-card-foreground p-6 shadow-[var(--shadow-soft)]"
+          >
+            <div className="font-display text-3xl whitespace-nowrap">
+              {s.v}
+            </div>
+
+            <div className="mt-1 text-sm text-card-foreground/65 whitespace-nowrap">
+              {s.l}
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
 
       {/* FLAVORS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
@@ -129,7 +214,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* MOMENTEN */}
+      {/* MOMENTS */}
       <section className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-10 items-start">
           <div className="reveal">
@@ -145,7 +230,7 @@ function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* WAITINGLIST */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
         <div className="reveal rounded-3xl surface-dark p-12 md:p-16 text-center shadow-[var(--shadow-premium)]">
           <h2 className="text-4xl md:text-5xl text-white">De eerste batch komt eraan.</h2>

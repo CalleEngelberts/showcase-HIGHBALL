@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"console.log\\(require.resolve\\('@tanstack/start-client-core/package.json'\\)\\)\")"
+    ]
+  }
+}

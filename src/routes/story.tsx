@@ -14,10 +14,22 @@ export const Route = createFileRoute("/story")({
   head: () => ({
     meta: [
       { title: "Verhaal — HIGHBALL CLUB" },
-      { name: "description", content: "Waarom we Highball Club hebben opgericht — voor de bewuste genieter." },
+      {
+        name: "description",
+        content:
+          "Waarom we Highball Club hebben opgericht — voor de bewuste genieter.",
+      },
       { property: "og:image", content: story6 },
     ],
+
+    links: [
+      {
+        rel: "canonical",
+        href: "https://highball.pages.dev/story",
+      },
+    ],
   }),
+
   component: StoryPage,
 });
 
@@ -110,7 +122,7 @@ function StoryPage() {
 
       {/* PERSONAL */}
       <section className="s-reveal mx-auto max-w-3xl px-6 py-24">
-        <h2 className="text-4xl md:text-5xl mb-6">Persoonlijk</h2>
+        <h2 className="text-4xl md:text-5xl mb-6">Ons verhaal</h2>
         <div className="space-y-5 text-foreground/80 leading-relaxed">
            <p>
           <h2>Waarom — De overtuiging erachter</h2> 
@@ -122,8 +134,8 @@ function StoryPage() {
            <p>
           <h2>Hoe — De manier waarop we het hebben opgebouwd</h2> 
            De hard seltzer-hype liet ons iets echts zien: mensen waren klaar voor een lichtere optie. De schappen vulden zich snel, en veel mensen maakten de overstap. Maar hoe meer we keken, hoe duidelijker het werd dat er nog iets ontbrak. Een drankje dat licht en laagdrempelig was, maar ook echt premium. Iets dat je koos omdat het goed smaakte.
-          We vonden ons antwoord in Japan. De whisky highball is al decennialang onderdeel van het dagelijks leven in Tokio — geen cocktail voor bijzondere gelegenheden, maar een eenvoudig, goed gemaakt drankje voor elk moment dat er eentje verdient. Dat idee voelde goed.
-          Dus bouwden we onze eigen versie. Echte ambachtelijke whisky. Spuitwater. Drie smaken die we zelf zouden bestellen: Lemon, Yuzu en Ginger. We hielden de cijfers eerlijk — 5% alcohol, 109 kcal, 2 gram suiker — niet als verkoopargument, maar omdat een weloverwogen drankje er nu eenmaal zo uitziet.</p>
+          We vonden ons antwoord in Japan. De whisky highball is al decennialang onderdeel van het dagelijks leven in Tokio, geen cocktail voor bijzondere gelegenheden, maar een eenvoudig, goed gemaakt drankje voor elk moment dat er eentje verdient. Dat idee voelde goed.
+          Dus bouwden we onze eigen versie. Echte ambachtelijke whisky. Spuitwater. Drie smaken die we zelf zouden bestellen: Lemon, Yuzu en Ginger. We hielden de cijfers eerlijk: 5% alcohol, 109 kcal, 2 gram suiker, niet als verkoopargument, maar omdat een weloverwogen drankje er nu eenmaal zo uitziet.</p>
           <i>'Vijf mensen die iets beters in de koelkast wilden, en besloten het er zelf in te zetten.'</i>
           <p></p>
           <p>
