@@ -80,7 +80,8 @@ function WachtlijstPage() {
           {submitted ? (
             <div className="py-12 text-center text-white">
               <div className="font-display text-4xl">Bedankt.</div>
-              <p className="mt-3 text-white/70">Je staat op de lijst! Check je inbox, we hebben je een bevestiging gestuurd.</p>
+              <p className="mt-3 text-white/70">Je staat op de lijst! Check je inbox,
+               we hebben je een bevestiging gestuurd.</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="space-y-5">

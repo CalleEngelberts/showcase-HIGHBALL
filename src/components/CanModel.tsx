@@ -12,7 +12,7 @@ import {
 import * as THREE from "three";
 
 import CAN_LEMON from "../assets/HighBall_Lemon3.glb?url";
-import CAN_YUZU from "../assets/final22.glb?url";
+import CAN_YUZU from "../assets/HighBall_Yuzu_Final.glb?url";
 import CAN_GINGER from "../assets/HighBall_Ginger3.glb?url";
 
 export type FlavorKey = "lemon" | "yuzu" | "ginger";
@@ -61,27 +61,27 @@ export function CanModel({ className, flavor }: Props) {
           antialias: true,
           alpha: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 0.9,
+          toneMappingExposure: 0.75,  // ← Increased from 0.6
         }}
       >
-        <ambientLight intensity={0.35} color="#ffffff" />
+        <ambientLight intensity={0.28} color="#ffffff" />
 
         <directionalLight
           position={[4, 6, 3]}
-          intensity={0.95}
+          intensity={0.75}  // ← Increased from 0.6
           castShadow
           color="#ffffff"
         />
 
         <directionalLight
           position={[-3, 2, -3]}
-          intensity={0.3}
+          intensity={0.2}  // ← Increased from 0.15
           color="#ffffff"
         />
 
         <spotLight
           position={[0, 4, 2]}
-          intensity={0.5}
+          intensity={0.4}  // ← Increased from 0.3
           penumbra={0.6}
           color="#ffffff"
           castShadow
@@ -89,7 +89,7 @@ export function CanModel({ className, flavor }: Props) {
 
         <pointLight
           position={[2, 3, 2]}
-          intensity={0.3}
+          intensity={0.25}  // ← Increased from 0.15
           color="#ffffff"
         />
 
@@ -106,7 +106,7 @@ export function CanModel({ className, flavor }: Props) {
 
           <Environment
             preset="studio"
-            environmentIntensity={0.55}
+            environmentIntensity={0.45}  // ← Increased from 0.35
           />
         </Suspense>
 
