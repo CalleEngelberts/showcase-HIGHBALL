@@ -1,4 +1,6 @@
-import { Suspense } from "react";
+'use client';
+
+import { Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   Environment,
@@ -9,9 +11,9 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-import CAN_LEMON from "../assets/HighBall_Lemon2.glb?url";
-import CAN_YUZU from "../assets/ClaudeBlenderFile2.glb?url";
-import CAN_GINGER from "../assets/HighBall_Ginger2.glb?url";
+import CAN_LEMON from "../assets/HighBall_Lemon3.glb?url";
+import CAN_YUZU from "../assets/final22.glb?url";
+import CAN_GINGER from "../assets/HighBall_Ginger3.glb?url";
 
 export type FlavorKey = "lemon" | "yuzu" | "ginger";
 
@@ -25,6 +27,9 @@ function GlbCan({ flavor }: { flavor: FlavorKey }) {
   const modelUrl = CAN_MODELS[flavor];
   const { scene } = useGLTF(modelUrl);
 
+  // Rotate 180 degrees around Y axis
+  scene.rotation.y = Math.PI;
+
   return (
     <Center>
       <primitive object={scene} />
@@ -32,17 +37,17 @@ function GlbCan({ flavor }: { flavor: FlavorKey }) {
   );
 }
 
-
-useGLTF.preload(CAN_LEMON);
-useGLTF.preload(CAN_YUZU);
-useGLTF.preload(CAN_GINGER);
-
 type Props = {
   className?: string;
   flavor: FlavorKey;
 };
 
 export function CanModel({ className, flavor }: Props) {
+  // Lazy load
+  useEffect(() => {
+    useGLTF.preload(CAN_MODELS[flavor]);
+  }, [flavor]);
+
   return (
     <div className={className}>
       <Canvas
@@ -56,35 +61,36 @@ export function CanModel({ className, flavor }: Props) {
           antialias: true,
           alpha: true,
           toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 0.85,
+          toneMappingExposure: 0.9,
         }}
       >
-        <ambientLight intensity={0.25} />
+        <ambientLight intensity={0.35} color="#ffffff" />
 
         <directionalLight
           position={[4, 6, 3]}
-          intensity={0.8}
+          intensity={0.95}
           castShadow
-          color="#fff5e6"
+          color="#ffffff"
         />
 
         <directionalLight
           position={[-3, 2, -3]}
-          intensity={0.25}
-          color="#e6f0ff"
-        />
-
-        <spotLight
-          position={[0, 4, 0]}
           intensity={0.3}
-          penumbra={0.8}
           color="#ffffff"
         />
 
+        <spotLight
+          position={[0, 4, 2]}
+          intensity={0.5}
+          penumbra={0.6}
+          color="#ffffff"
+          castShadow
+        />
+
         <pointLight
-          position={[0, -2, 2]}
-          intensity={0.15}
-          color="#ffeacc"
+          position={[2, 3, 2]}
+          intensity={0.3}
+          color="#ffffff"
         />
 
         <Suspense fallback={null}>
@@ -100,7 +106,7 @@ export function CanModel({ className, flavor }: Props) {
 
           <Environment
             preset="studio"
-            environmentIntensity={0.5}
+            environmentIntensity={0.55}
           />
         </Suspense>
 

@@ -9,10 +9,13 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { CookieConsent } from "../components/CookieConsent";
+import { AgeGate } from "../components/AgeGate";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
+// import { CookieBanner } from "../components/CookieBanner";
 
 function NotFoundComponent() {
   return (
@@ -109,11 +112,14 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
     <QueryClientProvider client={queryClient}>
+      <AgeGate />
+       <CookieConsent />
       <Nav />
       <main className="min-h-[60vh]">
         <Outlet />
       </main>
       <Footer />
+      {/* <CookieBanner /> */}
     </QueryClientProvider>
   );
 }

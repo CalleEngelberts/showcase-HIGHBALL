@@ -262,46 +262,46 @@ export function Flavors() {
 </div>
 
       {/* COMPARISON TABLE */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <h2 className="text-4xl md:text-5xl mb-8">Vergelijk de smaken</h2>
-        <div className="overflow-hidden rounded-2xl border border-border bg-card">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="bg-foreground/[0.04] text-left">
-                <th className="p-4 font-medium text-white">Compare flavors</th>
-                {(Object.keys(flavors) as FlavorKey[]).map((k) => (
-                  <th key={k} className="p-4 font-display text-lg" style={{ color: flavors[k].hex }}>
-                    {flavors[k].name}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                { label: "Calories", get: (f: typeof flavors.lemon) => `${f.stats.calories}` },
-                { label: "Sugar", get: (f: typeof flavors.lemon) => f.stats.sugar },
-                { label: "Sweetness", dots: (f: typeof flavors.lemon) => f.stats.sweetness },
-                { label: "Sour", dots: (f: typeof flavors.lemon) => f.stats.sour },
-                { label: "Bitterness", dots: (f: typeof flavors.lemon) => f.stats.bitterness },
-                { label: "Refreshing", dots: (f: typeof flavors.lemon) => f.stats.refreshing },
-              ].map((row) => (
-                <tr key={row.label} className="border-t border-border">
-                  <td className="p-4 font-medium text-muted-foreground">{row.label}</td>
-                  {(Object.keys(flavors) as FlavorKey[]).map((k) => (
-                    <td key={k} className="p-4">
-                      {"get" in row ? (
-                        <span>{row.get(flavors[k])}</span>
-                      ) : (
-                        <Dots n={row.dots(flavors[k])} color={flavors[k].hex} />
-                      )}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+<section className="mx-auto max-w-7xl px-6 py-20">
+  <h2 className="text-4xl md:text-5xl mb-8">Vergelijk de smaken</h2>
+  <div className="overflow-hidden rounded-2xl border border-border bg-card">
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="bg-foreground/[0.04] text-left">
+          <th className="p-4 font-medium text-white">Compare flavors</th>
+          {(Object.keys(flavors) as FlavorKey[]).map((k) => (
+            <th key={k} className="p-4 font-display text-lg" style={{ color: flavors[k].hex }}>
+              {flavors[k].name}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[
+          { label: "Calories", get: (f: typeof flavors.lemon) => `${f.stats.calories}` },
+          { label: "Sugar", get: (f: typeof flavors.lemon) => f.stats.sugar },
+          { label: "Sweetness", dots: (f: typeof flavors.lemon) => f.stats.sweetness },
+          { label: "Sour", dots: (f: typeof flavors.lemon) => f.stats.sour },
+          { label: "Bitterness", dots: (f: typeof flavors.lemon) => f.stats.bitterness },
+          { label: "Refreshing", dots: (f: typeof flavors.lemon) => f.stats.refreshing },
+        ].map((row) => (
+          <tr key={row.label} className="border-t border-border">
+            <td className="p-4 font-medium text-white">{row.label}</td>
+            {(Object.keys(flavors) as FlavorKey[]).map((k) => (
+              <td key={k} className="p-4">
+                {"get" in row ? (
+                  <span className="text-white">{row.get(flavors[k])}</span>
+                ) : (
+                  <Dots n={row.dots(flavors[k])} color={flavors[k].hex} />
+                )}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
     </div>
   );
 }

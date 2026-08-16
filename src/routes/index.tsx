@@ -12,14 +12,32 @@ import story2 from "../assets/story2.png";
 import story3 from "../assets/story3.jpeg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
+  
+   head: 
+   () => ({
     meta: [
-      { title: "HIGHBALL CLUB — Niet elke avond verdient om vergeten te worden" },
-      { name: "description", content: "Craft whiskey-highball in blik. Lemon, Yuzu, Ginger. 5% ABV, 109 kcal, 2g suiker." },
+      {
+        title:
+          "HIGHBALL CLUB — Niet elke avond verdient om vergeten te worden",
+      },
+      {
+        name: "description",
+        content:
+          "Craft whiskey-highball in blik. Lemon, Yuzu, Ginger. 5% ABV, 109 kcal, 2g suiker.",
+      },
+    ],
+
+    links: [
+      {
+        rel: "canonical",
+        href: "https://highball.pages.dev/",
+      },
     ],
   }),
+
   component: HomePage,
-});
+})
+;
 
 const flavors = [
   { key: "lemon",  name: "Lemon",  tag: "Fris & licht",      blurb: "Zonnige citroen met een zachte whiskey-finish.",  img: canLemon,  tint: "var(--lemon)" },
@@ -33,7 +51,6 @@ const infoItems = [
   { v: "2g suiker", l: "Minder, maar beter." },
   { v: "300 ml", l: "Perfect formaat." },
 
-  // Add more later:
   { v: "Premium", l: "Crafted with care." },
   { v: "Whiskey", l: "Met echte Japanse whiskey." },
   { v: "Serve Cold", l: "Het lekkerst ijskoud." },
@@ -140,8 +157,6 @@ function HomePage() {
 <section className="reveal py-16 overflow-hidden">
   <div className="w-full overflow-hidden">
     <div className="info-carousel-track flex w-max">
-      
-      {/* FIRST COPY */}
       <div className="flex shrink-0 gap-6 pr-6">
         {infoItems.map((s) => (
           <div

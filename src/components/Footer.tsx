@@ -1,3 +1,5 @@
+import { Link } from "@tanstack/react-router";
+
 export function Footer() {
   return (
     <footer className="border-t border-border/60 mt-24">
@@ -5,8 +7,9 @@ export function Footer() {
         <div className="font-display tracking-[0.25em]">HIGHBALL CLUB</div>
         <div>© {new Date().getFullYear()} Highball Club. Drink bewust. 18+</div>
         <div className="flex gap-5">
-          <a href="#" className="hover:text-foreground transition">Instagram</a>
-          <a href="#" className="hover:text-foreground transition">Contact</a>
+          <a href="https://instagram.com/highballclub" className="hover:text-foreground transition">Instagram</a>
+          <a href="mailto:contact@highballclub.com" className="hover:text-foreground transition">Contact</a>
+          <Link to="/privacy" className="hover:text-foreground transition">Privacy</Link>
         </div>
       </div>
     </footer>

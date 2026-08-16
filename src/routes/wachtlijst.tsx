@@ -70,7 +70,7 @@ function WachtlijstPage() {
         <p className="w-fade text-xs tracking-[0.3em] text-foreground/60">PROEF ALS EERSTE</p>
         <h1 className="w-fade mt-3 text-5xl md:text-6xl">Sluit je aan bij de club.</h1>
         <p className="w-fade mt-4 text-muted-foreground max-w-xl mx-auto">
-          De eerste batch is beperkt. Schrijf je in voor de wachtlijst en ontvang als eerste bericht zodra we lanceren — of stuur ons een bericht.
+          De eerste batch is beperkt. Schrijf je in voor de wachtlijst en ontvang als eerste bericht zodra we lanceren, of stuur ons een bericht.
         </p>
       </section>
 
@@ -80,7 +80,7 @@ function WachtlijstPage() {
           {submitted ? (
             <div className="py-12 text-center text-white">
               <div className="font-display text-4xl">Bedankt.</div>
-              <p className="mt-3 text-white/70">Je staat op de lijst. Check je inbox — we hebben je een bevestiging gestuurd.</p>
+              <p className="mt-3 text-white/70">Je staat op de lijst! Check je inbox, we hebben je een bevestiging gestuurd.</p>
             </div>
           ) : (
             <form onSubmit={onSubmit} className="space-y-5">

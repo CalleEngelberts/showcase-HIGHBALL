@@ -9,25 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WachtlijstRouteImport } from './routes/wachtlijst'
-import { Route as StoryRouteImport } from './routes/story'
-import { Route as FlavorscopyRouteImport } from './routes/flavors copy'
-import { Route as FlavorsRouteImport } from './routes/flavors'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FlavorsRouteImport } from './routes/flavors'
+import { Route as FlavorscopyRouteImport } from './routes/flavors copy'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as StoryRouteImport } from './routes/story'
+import { Route as WachtlijstRouteImport } from './routes/wachtlijst'
 
-const WachtlijstRoute = WachtlijstRouteImport.update({
-  id: '/wachtlijst',
-  path: '/wachtlijst',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoryRoute = StoryRouteImport.update({
-  id: '/story',
-  path: '/story',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FlavorscopyRoute = FlavorscopyRouteImport.update({
-  id: '/flavors copy',
-  path: '/flavors copy',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FlavorsRoute = FlavorsRouteImport.update({
@@ -35,9 +26,24 @@ const FlavorsRoute = FlavorsRouteImport.update({
   path: '/flavors',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FlavorscopyRoute = FlavorscopyRouteImport.update({
+  id: '/flavors copy',
+  path: '/flavors copy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoryRoute = StoryRouteImport.update({
+  id: '/story',
+  path: '/story',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WachtlijstRoute = WachtlijstRouteImport.update({
+  id: '/wachtlijst',
+  path: '/wachtlijst',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/flavors': typeof FlavorsRoute
   '/flavors copy': typeof FlavorscopyRoute
+  '/privacy': typeof PrivacyRoute
   '/story': typeof StoryRoute
   '/wachtlijst': typeof WachtlijstRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/flavors': typeof FlavorsRoute
   '/flavors copy': typeof FlavorscopyRoute
+  '/privacy': typeof PrivacyRoute
   '/story': typeof StoryRoute
   '/wachtlijst': typeof WachtlijstRoute
 }
@@ -60,46 +68,42 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/flavors': typeof FlavorsRoute
   '/flavors copy': typeof FlavorscopyRoute
+  '/privacy': typeof PrivacyRoute
   '/story': typeof StoryRoute
   '/wachtlijst': typeof WachtlijstRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/flavors' | '/flavors copy' | '/story' | '/wachtlijst'
+  fullPaths:
+    '/' | '/flavors' | '/flavors copy' | '/privacy' | '/story' | '/wachtlijst'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/flavors' | '/flavors copy' | '/story' | '/wachtlijst'
-  id: '__root__' | '/' | '/flavors' | '/flavors copy' | '/story' | '/wachtlijst'
+  to: '/' | '/flavors' | '/flavors copy' | '/privacy' | '/story' | '/wachtlijst'
+  id:
+    | '__root__'
+    | '/'
+    | '/flavors'
+    | '/flavors copy'
+    | '/privacy'
+    | '/story'
+    | '/wachtlijst'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FlavorsRoute: typeof FlavorsRoute
   FlavorscopyRoute: typeof FlavorscopyRoute
+  PrivacyRoute: typeof PrivacyRoute
   StoryRoute: typeof StoryRoute
   WachtlijstRoute: typeof WachtlijstRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/wachtlijst': {
-      id: '/wachtlijst'
-      path: '/wachtlijst'
-      fullPath: '/wachtlijst'
-      preLoaderRoute: typeof WachtlijstRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/story': {
-      id: '/story'
-      path: '/story'
-      fullPath: '/story'
-      preLoaderRoute: typeof StoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/flavors copy': {
-      id: '/flavors copy'
-      path: '/flavors copy'
-      fullPath: '/flavors copy'
-      preLoaderRoute: typeof FlavorscopyRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/flavors': {
@@ -109,11 +113,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FlavorsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/flavors copy': {
+      id: '/flavors copy'
+      path: '/flavors copy'
+      fullPath: '/flavors copy'
+      preLoaderRoute: typeof FlavorscopyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/story': {
+      id: '/story'
+      path: '/story'
+      fullPath: '/story'
+      preLoaderRoute: typeof StoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wachtlijst': {
+      id: '/wachtlijst'
+      path: '/wachtlijst'
+      fullPath: '/wachtlijst'
+      preLoaderRoute: typeof WachtlijstRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -123,6 +148,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FlavorsRoute: FlavorsRoute,
   FlavorscopyRoute: FlavorscopyRoute,
+  PrivacyRoute: PrivacyRoute,
   StoryRoute: StoryRoute,
   WachtlijstRoute: WachtlijstRoute,
 }
