@@ -1,10 +1,15 @@
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { nitro } from "nitro/vite";
 import imagemin from "vite-plugin-imagemin";
 
 export default defineConfig({
   vite: {
     base: "/",
     plugins: [
+       nitro({
+        preset: "vercel",
+      }),
+
       imagemin({
         mozjpeg: { quality: 80 }, // JPEG compression
         pngquant: {
