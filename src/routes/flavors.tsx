@@ -109,7 +109,7 @@ function Dots({ n, max = 5, color }: { n: number; max?: number; color: string })
 }
 
 
-export function Flavors() {
+function Flavors() {
   // Controls the header buttons, 3D model and header text
   const [active, setActive] = useState<FlavorKey>("yuzu");
 

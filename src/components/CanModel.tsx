@@ -11,16 +11,12 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 
-import CAN_LEMON from "../assets/HighBall_Lemon3.glb?url";
-import CAN_YUZU from "../assets/HighBall_Yuzu_Final.glb?url";
-import CAN_GINGER from "../assets/HighBall_Ginger3.glb?url";
-
 export type FlavorKey = "lemon" | "yuzu" | "ginger";
 
 const CAN_MODELS: Record<FlavorKey, string> = {
-  lemon: CAN_LEMON,
-  yuzu: CAN_YUZU,
-  ginger: CAN_GINGER,
+  lemon: "/models/HighBall_Lemon3.glb",
+  yuzu: "/models/HighBall_Yuzu_Final.glb",
+  ginger: "/models/HighBall_Ginger3.glb",
 };
 
 function GlbCan({ flavor }: { flavor: FlavorKey }) {
@@ -51,7 +47,7 @@ export function CanModel({ className, flavor }: Props) {
   return (
     <div className={className}>
       <Canvas
-        shadows
+        shadows={{ type: THREE.PCFShadowMap }}
         dpr={[1, 2]}
         camera={{
           position: [0, 0.2, 5.8],
@@ -105,7 +101,7 @@ export function CanModel({ className, flavor }: Props) {
           />
 
           <Environment
-            preset="studio"
+            files="/hdri/studio_small_03_1k.hdr"
             environmentIntensity={0.45}  // ← Increased from 0.35
           />
         </Suspense>
