@@ -159,12 +159,12 @@ export function CanModel({ className, flavor }: Props) {
 
               <div>
                 <p className="text-xs text-card-foreground/60 uppercase tracking-wide">Sweetness</p>
-                <p className="text-lg font-semibold">{yuzu.stats.sweetness}/5</p>
+                <p className="text-lg font-semibold">⚫︎ ⚫︎ ⚫︎ ⚫︎ ⚪︎ </p>
               </div>
 
               <div>
                 <p className="text-xs text-card-foreground/60 uppercase tracking-wide">Sourness</p>
-                <p className="text-lg font-semibold">{yuzu.stats.sour}/5</p>
+                <p className="text-lg font-semibold">⚫︎ ⚫︎ ⚫︎ ⚪︎ ⚪︎ </p>
               </div>
             </div>
           </div>
